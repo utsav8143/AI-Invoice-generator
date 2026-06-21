@@ -1,0 +1,1 @@
+AI Invoice App is a simple, fast way to create and send professional invoices. Powered by AI, it streamlines invoice generation so you can focus on your business instead of formatting documents. Built with a React frontend and a Node.js backend, with Google Cloud AI integration for smart invoice assistance.
