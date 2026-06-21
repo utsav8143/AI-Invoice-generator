@@ -113,7 +113,7 @@ exports.updateUserProfile = async (req, res) => {
     if(user){
       user.name=req.body.name || user.name;
       user.buisnessName=req.body.buisnessName || user.buisnessName;
-      user.adress=req.body.adress || user.address;
+      user.adress=req.body.address || user.address;
       user.phone=req.body.phone ||user.phone;
 
       const updateUser=await user.save();
@@ -132,5 +132,29 @@ exports.updateUserProfile = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ messages: "server error" });
+  }
+};
+
+
+// @desc Get current logged-in user
+// @route GET /api/auth/me
+// @access Private
+exports.getMe = async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({
+      _id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+      buisnessName: req.user.buisnessName || "",
+      address: req.user.address || "",
+      phone: req.user.phone || "",
+    });
+  } catch (error) {
+    console.error("getMe error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
