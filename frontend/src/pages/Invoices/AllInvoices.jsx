@@ -240,7 +240,7 @@ const AllInvoices = () => {
                   <tr className="hover:bg-slate-50" key={invoice._id}>
                     <td
                       className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900 cursor-pointer"
-                      onClick={() => navigate(`/invoices/${invoice._id}`)}
+                      onClick={() => navigate(`/invoices/${invoice.id}`)}
                     >
                       {invoice.invoiceNumber}
                     </td>

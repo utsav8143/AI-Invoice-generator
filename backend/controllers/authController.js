@@ -101,26 +101,7 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ messages: "server error" });
   }
 };
-
-//@desc Get current logged-in user
-//@route PUT/api/auth/me
-//@access Private
-exports.getMe = async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id);
-    res.json({
-      _id: user.id,
-      name: user.name,
-      email: user.email,
-
-      buisnessName: user.buisnessName || "",
-      address: user.address || "",
-      phone: user.phone || "",
-    });
-  } catch (error) {
-    res.status(500).json({ messages: "server error" });
-  }
-};
+   
 
 // @desc Update user profile
 // @route PUT /api/auth/update

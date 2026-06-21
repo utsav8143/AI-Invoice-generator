@@ -63,8 +63,51 @@ const parseInvoiceFromText = async (req, res) => {
 
 const generateReminderEmail = async (req, res) => {
   try {
-    // TODO: implement reminder email generation
-    res.status(200).json({ message: "Not yet implemented" });
+    const {
+      clientName,
+      invoiceNumber,
+      amount,
+      dueDate,
+      businessName,
+      daysOverdue,
+    } = req.body;
+
+    // Basic validation
+    if (!clientName || !invoiceNumber || !amount || !dueDate) {
+      return res.status(400).json({
+        message:
+          "Missing required fields: clientName, invoiceNumber, amount, dueDate",
+      });
+    }
+
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+    const prompt = `
+Write a polite, professional payment reminder email for an unpaid invoice.
+
+Details:
+- Client name: ${clientName}
+- Invoice number: ${invoiceNumber}
+- Amount due: ${amount}
+- Due date: ${dueDate}
+${daysOverdue ? `- Days overdue: ${daysOverdue}` : ""}
+${businessName ? `- Sent from: ${businessName}` : ""}
+
+Requirements:
+- Keep it concise (under 150 words)
+- Friendly but firm tone, not aggressive
+- Include a clear call to action to pay the invoice
+- Do not invent details not provided above
+- Return ONLY the email body text — no subject line, no markdown formatting
+`;
+
+    const result = await model.generateContent(prompt);
+    const emailText = result.response.text();
+
+    res.status(200).json({
+      message: "Reminder email generated successfully",
+      email: emailText,
+    });
   } catch (error) {
     console.error("Error generating email with AI", error);
     res.status(500).json({
