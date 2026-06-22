@@ -66,19 +66,21 @@ const Login = () => {
     try {
       const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, formData);
 
-      const { token } = response.data;
+      const  {token}  = response.data;
+      console.log("token type:", typeof token, "value:", JSON.stringify(token));
 
       if (token) {
-        localStorage.setItem("token", token);
+    
         setSuccess("Login successfull");
-        login(response.data, token);
+        login(token, response.data);
 
         //Redirect based on role
         setTimeout(() => {
           window.location.href = "/dashboard";
         }, 2000);
       } else {
-        setError(response.data.message || "Invalid response from server");
+        setError(response.data.message || "Invalid response from the server");
+        
       }
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {

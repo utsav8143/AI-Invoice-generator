@@ -11,7 +11,7 @@ const authRoutes=require("./routes/authRoute");
 const invoiceRoutes=require("./routes/invoiceRoute");
 const aiRoutes=require("./routes/aiRoute");
 
-console.log("API KEY:", process.env.GOOGLE_GENAI_API_KEY);
+
 
 
 //Middleware to handle CORS
