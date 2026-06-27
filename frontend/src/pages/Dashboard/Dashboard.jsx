@@ -151,7 +151,7 @@ const Dashboard = () => {
               <tbody className="bg-white divide-y divide-slate-200">
                 {recentInvoices.map((invoice) => (
                   <tr
-                    className="hover:bg-slate-50 cursor-not-allowed"
+                    className="hover:bg-slate-50 "
                     key={invoice._id}
                     onClick={() => navigate(`/invoices/${invoice._id}`)}
                   >
