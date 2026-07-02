@@ -149,7 +149,7 @@ exports.getMe = async (req, res) => {
       _id: req.user._id,
       name: req.user.name,
       email: req.user.email,
-      buisnessName: req.user.buisnessName || "",
+      businessName: req.user.businessName || "",
       address: req.user.address || "",
       phone: req.user.phone || "",
     });
