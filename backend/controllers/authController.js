@@ -141,17 +141,18 @@ exports.updateUserProfile = async (req, res) => {
 // @access Private
 exports.getMe = async (req, res) => {
   try {
-    if (!req.user) {
+    const user=await User.findById(req.user.id);
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
     res.json({
-      _id: req.user._id,
-      name: req.user.name,
-      email: req.user.email,
-      businessName: req.user.businessName || "",
-      address: req.user.address || "",
-      phone: req.user.phone || "",
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      businessName: user.businessName || "",
+      address: user.address || "",
+      phone: user.phone || "",
     });
   } catch (error) {
     console.error("getMe error:", error);
