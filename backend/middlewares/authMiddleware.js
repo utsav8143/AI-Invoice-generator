@@ -21,6 +21,11 @@ const protect = async (req, res, next) => {
       // Get user
       req.user = await User.findById(decoded.id).select("-password");
 
+      if(!user){
+        return res.status(401).json({"User not found"}) }
+
+      req.user=user;
+
       next();
     } catch (err) {
       console.log("JWT ERROR:", err.message);
